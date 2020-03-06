@@ -1,0 +1,89 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <string.h>
+
+#ifndef max                                                //defining macro max
+    #define max(a,b) ((a) > (b) ? (a) : (b))
+#endif
+
+int lcs(char *s1,char *s2,int i,int j)
+{
+    int A[i+1][j+1];
+    int a,b;
+    
+    for(a=0;a<=i;a++)
+    {
+       A[a][0]=0;
+    }
+    
+    for(b=0;b<=i;b++)
+    {
+        A[0][b]=0;
+    }
+    for(a=1;a<=i;a++)
+    {
+        for(b=1;b<=j;b++)
+        {
+            
+            if(s1[a-1]==s2[b-1])
+            {
+                A[a][b]=A[a-1][b-1]+1;
+            }
+            else
+            {
+                A[a][b]=max(A[a-1][b],A[a][b-1]);
+            }
+        }
+    }
+    
+    //return A[i][j];
+     
+    int t=A[i][j];
+    
+    printf("Longest subsequence is %d",t);
+    char L[50];
+    
+    while(i>0 && j>0)
+    {
+        
+        if(s1[i-1]==s2[j-1])
+        {
+            L[t-1]=s1[i-1];
+            t--;
+            i--;
+            j--;
+        }
+        else if(A[i - 1][j] > A[i][j - 1])
+        {
+            i--;
+        }
+        else
+        {
+            j--;
+        }
+    }
+   
+     printf("\nPrint subsequence is %s",L);
+
+}
+int main()
+{
+    
+    char X[20];
+    char Y[20];
+    
+    //char string1,string2;
+    printf("Enter the first string\n");
+    scanf("%s",X);
+    
+    printf("Enter the second string\n");
+    scanf("%s",Y);
+    
+    int i=strlen(X);
+    int j=strlen(Y);
+    
+   lcs(X,Y,i,j);
+    
+    return 0;
+}
