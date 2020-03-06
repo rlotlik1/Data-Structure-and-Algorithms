@@ -1,0 +1,93 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int SelectionSort(int A[],int n)
+{
+    int i ,j,temp,min;
+    for(i=0;i<=n-2;i++) //Moving boundary of unsorted elements, loop runs till the second last element for comparing it with all the elements in the list 
+       
+    {
+        
+        min=i; 
+        
+        //finding minimum element in the array 
+       for(j=i+1;j<=n-1;j++) 
+       {
+           
+           if(A[j]<A[min]) //if minimum element found,value of "j" is updated
+           {
+               min=j;
+               
+           }
+           //swapping the current "i" element with the smallest value at "min" index
+           temp=A[i];
+           A[i]=A[min];
+           A[min]=temp;
+       }
+        
+    }
+ 
+return A[i]; //return sorted array
+}
+
+
+int main()
+{
+    int i ,j,n,min,temp,A[100],k,A1[50],c=0;
+    
+    printf("Enter the number of elements"); 
+    scanf("%d",&n);
+    
+    //printing an array 
+    printf("Enter the elements");
+    
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&A[i]);
+    } 
+    
+    SelectionSort(A,n); //caller function
+    
+    //Printing the array with sorted elements
+        printf("The sorted elements are \n");
+        
+    for (i = 0; i < n; i++)
+    {
+        
+        
+        printf( "%d\n", A[i]) ;
+    }
+       
+        
+        printf("Enter the number of steps\n");
+        scanf("%d",&k);
+        
+        printf("The K number of elements are\n"); 
+        
+        //Printing the elements of the sorted array till "k" input given
+        for(i=0;i<k;i++)
+        {
+            A1[c]=A[i];
+            c=c+1;
+                      
+        }
+       //Print the k number of elements in sorted order
+        for(c=0;c<k;c++)
+        {
+              printf("%d\n",A1[c]);   
+              
+        }
+        
+        
+    float median;
+    if(k%2 == 0) //if number of elements are even
+     median = (A1[(k/2)-1] + A1[k/2])/2.0;
+    
+    else //if number of elements are odd
+      median = A1[k/2];
+    
+     printf("The median is %f\n",median);
+     return 0;
+}
+
